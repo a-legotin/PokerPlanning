@@ -24,7 +24,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\src\assets\images" />
       <Folder Include="Controllers" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\PokerPlanning.Network\PokerPlanning.Network.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

@@ -5,6 +5,8 @@ using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PokerPlanning.Network;
+using PokerPlanning.Network.Hubs;
 
 namespace PokerPlanning.Web
 {
@@ -20,6 +22,10 @@ namespace PokerPlanning.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSignalR(options => 
+            { 
+                options.EnableDetailedErrors = true; 
+            }); 
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -50,8 +56,18 @@ namespace PokerPlanning.Web
 
             app.UseRouting();
 
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:5000")
+                    .AllowAnyHeader()
+                    .WithMethods("GET", "POST")
+                    .AllowCredentials();
+            });
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<PlanningRoomHub>("/planning-room");
+
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
