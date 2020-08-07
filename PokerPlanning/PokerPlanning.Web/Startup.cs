@@ -1,11 +1,11 @@
+using Autofac;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PokerPlanning.Network;
+using PokerPlanning.Data;
 using PokerPlanning.Network.Hubs;
 
 namespace PokerPlanning.Web
@@ -32,6 +32,11 @@ namespace PokerPlanning.Web
             {
                 configuration.RootPath = "ClientApp/dist";
             });
+        }
+        
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new AutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -66,7 +71,7 @@ namespace PokerPlanning.Web
             
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<PlanningRoomHub>("/planning-room");
+                endpoints.MapHub<PlanningRoomHub>("hubs/planning-room");
 
                 endpoints.MapControllerRoute(
                     name: "default",

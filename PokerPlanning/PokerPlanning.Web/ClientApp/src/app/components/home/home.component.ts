@@ -1,6 +1,8 @@
 import {Component, OnInit} from '@angular/core';
 import {HubConnection} from '@microsoft/signalr';
 import * as signalR from '@microsoft/signalr';
+import {Router} from '@angular/router';
+import {Room} from '../../models/room';
 
 @Component({
   selector: 'app-home',
@@ -9,7 +11,7 @@ import * as signalR from '@microsoft/signalr';
 
 export class HomeComponent implements OnInit {
 
-  constructor() {
+  constructor(private router: Router) {
   }
 
   public username: string = null;
@@ -20,7 +22,7 @@ export class HomeComponent implements OnInit {
   }
 
   signalrConn() {
-    this._hubConnection = new signalR.HubConnectionBuilder().withUrl('http://localhost:5000/planning-room').build();
+    this._hubConnection = new signalR.HubConnectionBuilder().withUrl('http://localhost:5000/hubs/planning-room').build();
     this._hubConnection
       .start()
       .then(function () {
@@ -29,8 +31,9 @@ export class HomeComponent implements OnInit {
       return console.error(err.toString());
     });
 
-    this._hubConnection.on('onRoomCreated', (data) => {
-      console.log(data);
+    this._hubConnection.on('onRoomCreated', (data: Room) => {
+      console.log(data.id);
+      this.router.navigate(['/room', data.id]);
     });
   }
 

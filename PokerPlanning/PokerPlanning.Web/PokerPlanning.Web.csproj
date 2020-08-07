@@ -13,6 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="5.2.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.6" />
     </ItemGroup>
 
@@ -24,11 +26,12 @@
     </ItemGroup>
 
     <ItemGroup>
+      <Folder Include="ClientApp\src\app\components" />
       <Folder Include="ClientApp\src\assets\images" />
-      <Folder Include="Controllers" />
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\PokerPlanning.Data\PokerPlanning.Data.csproj" />
       <ProjectReference Include="..\PokerPlanning.Network\PokerPlanning.Network.csproj" />
     </ItemGroup>
 

@@ -1,9 +1,10 @@
 using System;
+using PokerPlanning.Core.Data;
 
-namespace PokerPlanning.Core
+namespace PokerPlanning.Core.Models
 {
     [Serializable]
-    public struct PlanningUser
+    public struct PlanningUser : IEntity
     {
         public string ConnectionId { get; set; }
         public Guid Id { get; set; }

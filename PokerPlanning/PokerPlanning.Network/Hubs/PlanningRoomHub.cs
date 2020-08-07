@@ -1,15 +1,21 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using PokerPlanning.Core;
+using PokerPlanning.Core.Data;
+using PokerPlanning.Core.Models;
 
 namespace PokerPlanning.Network.Hubs
 {
     public class PlanningRoomHub : Hub
     {
-        private static readonly ConcurrentDictionary<Guid, PlanningRoom> _rooms =
-            new ConcurrentDictionary<Guid, PlanningRoom>();
+
+        private readonly IRoomRepository _repository;
+
+        public PlanningRoomHub(IRoomRepository repository)
+        {
+            _repository = repository;
+        }
 
         public async Task CreatePlanningRoom(string userName)
         {
@@ -23,15 +29,9 @@ namespace PokerPlanning.Network.Hubs
             
             var room = new PlanningRoom();
             room.Users.Add(user);
-            if (_rooms.TryGetValue(room.Id, out var existingRoom))
-            {
-                await Clients.Caller.SendAsync("onRoomCreated", existingRoom);
-            }
-            else
-            {
-                _rooms.TryAdd(room.Id, room);
-                await Clients.Caller.SendAsync("onRoomCreated", room);
-            }
+
+            _repository.Insert(room);
+             await Clients.Caller.SendAsync("onRoomCreated", room);
         }
 
         public async Task Join(string userName, Guid roomId)
@@ -44,16 +44,12 @@ namespace PokerPlanning.Network.Hubs
                 ConnectionId = connectionId
             };
 
-            if (_rooms.TryGetValue(roomId, out var existingRoom))
+            var room = _repository.GetById(roomId);
+            if (room != null)
             {
-                await Clients.Caller.SendAsync("onConnected", user, existingRoom.Users);
+                await Clients.Caller.SendAsync("onConnected", user, room);
                 await Clients.AllExcept(connectionId).SendAsync("onNewUserConnected", user);
             }
-        }
-
-        public async Task Test()
-        {
-            await Clients.Caller.SendAsync("onTested");
         }
     }
 }
