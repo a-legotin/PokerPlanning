@@ -5,10 +5,10 @@ stages:
     - build
 
 before_script:
+    - cd PokerPlanning/
     - "dotnet restore"
 
 build:
     stage: build
     script:
-        - cd PokerPlanning/
         - "dotnet build"
