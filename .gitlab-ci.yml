@@ -1,7 +1,5 @@
 image: microsoft/dotnet:latest
 
-tags:
-    - local
 
 stages:
     - build
@@ -11,6 +9,8 @@ before_script:
 
 build:
     stage: build
+    tags:
+        - local
     script:
         - cd PokerPlanning/
         - "dotnet build"
