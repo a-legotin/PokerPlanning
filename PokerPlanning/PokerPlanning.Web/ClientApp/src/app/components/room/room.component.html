@@ -17,4 +17,15 @@
   <div class="d-flex flex-row">
     <div class="p-2"><p *ngIf="room">{{room.id}}</p></div>
   </div>
+
+  <div class="row">
+
+    <div class="col-md-3">
+      <app-room-users></app-room-users>
+    </div>
+
+    <div class="col-md-6">
+      <app-room-table></app-room-table>
+    </div>
+  </div>
 </div>

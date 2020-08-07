@@ -9,8 +9,6 @@ before_script:
 
 build:
     stage: build
-    tags:
-        - local
     script:
         - cd PokerPlanning/
         - "dotnet build"
