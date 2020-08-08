@@ -14,11 +14,8 @@ export class TableComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private roomService: RoomService) {
   }
-  id: string;
 
   ngOnInit(): void {
-    const roomId = this.route.snapshot.paramMap.get('id');
-    console.log(roomId);
-    this.roomService.getRoom(roomId).subscribe(room => (this.room = room));
+    console.log(this.room.id);
   }
 }

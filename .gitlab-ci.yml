@@ -1,5 +1,4 @@
-image: microsoft/dotnet:latest
-
+image: microsoft/aspnetcore-build:latest
 
 stages:
     - build

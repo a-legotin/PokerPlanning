@@ -1,15 +1,16 @@
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Injectable } from '@angular/core';
-import { Observable, throwError as observableThrowError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, throwError as observableThrowError} from 'rxjs';
+import {catchError, map} from 'rxjs/operators';
 
-import { Room } from '../models/room';
+import {Room} from '../models/room';
 
 @Injectable()
 export class RoomService {
   private roomUrl = 'api/room';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) {
+  }
 
   getRoom(id: string): Observable<Room> {
     const url = `${this.roomUrl}/${id}`;

@@ -11,6 +11,7 @@ import {HomeComponent} from './components/home/home.component';
 import {RoomComponent} from './components/room/room.component';
 import {TableComponent} from './components/room/table/table.component';
 import {RoomUsersComponent} from './components/room/users/users.component';
+import {SignalrConnectionFactory} from './services/signalrConnectionFactory';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,7 @@ import {RoomUsersComponent} from './components/room/users/users.component';
       {path: 'room/:id', component: RoomComponent},
     ])
   ],
-  providers: [RoomService],
+  providers: [RoomService, SignalrConnectionFactory],
   bootstrap: [AppComponent]
 })
 export class AppModule {
