@@ -4,11 +4,8 @@ stages:
     - build
 
 before_script:
-    - apt-get update -y -q
-    - apt install curl -y -q
-    - "curl -sL https://deb.nodesource.com/setup_14.x | bash -"
-    - apt install nodejs -y -q
-    - apt install npm -y -q
+    - apk update && apk add --update --no-cache nodejs
+    - apt update && apk add --update --no-cache npm
     - node --version
     - npm --version
     - cd PokerPlanning/
