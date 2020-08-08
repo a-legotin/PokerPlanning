@@ -4,6 +4,11 @@ stages:
     - build
 
 before_script:
+    - apt-get update
+    - apt install curl
+    - "curl -sL https://deb.nodesource.com/setup_11.x | sudo -E bash -"
+    - apt install nodejs
+    - node --version
     - cd PokerPlanning/
     - "dotnet restore"
 
