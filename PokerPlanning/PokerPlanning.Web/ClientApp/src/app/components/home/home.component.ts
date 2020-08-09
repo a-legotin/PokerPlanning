@@ -1,6 +1,7 @@
 import {Component} from '@angular/core';
 import {Router} from '@angular/router';
 import {RoomService} from '../../services/room.service';
+import {CurrentUserService} from '../../services/currentUser.service';
 
 @Component({
   selector: 'app-home',
@@ -10,7 +11,8 @@ import {RoomService} from '../../services/room.service';
 export class HomeComponent {
 
   constructor(private router: Router,
-              private roomService: RoomService) {
+              private roomService: RoomService,
+              private currentUserService: CurrentUserService) {
   }
 
   public username: string = null;
@@ -18,6 +20,7 @@ export class HomeComponent {
   public createPlanningRoom(): void {
     this.roomService.createRoom(this.username)
       .subscribe(value => {
+        this.currentUserService.assign(this.username, value);
         this.router.navigate(['/room', value]);
       });
   }

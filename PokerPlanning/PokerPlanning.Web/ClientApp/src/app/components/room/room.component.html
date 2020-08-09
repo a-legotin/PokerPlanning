@@ -1,4 +1,29 @@
-<div class="container-fluid" *ngIf="room">
+<div class="container-fluid" *ngIf="!currentUser">
+  <div class="center-block">
+
+    <div class="row">
+      <div class="mx-auto w-auto p-3">
+        <div class="row">
+          <h3 class="mx-auto">Joining room {{room.id}}</h3>
+        </div>
+        <div class="row mx-auto">
+          <svg width="10em" height="10em" viewBox="0 0 16 16" class="mx-auto bi bi-door-open-fill" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <path fill-rule="evenodd" d="M1.5 15a.5.5 0 0 0 0 1h13a.5.5 0 0 0 0-1H13V2.5A1.5 1.5 0 0 0 11.5 1H11V.5a.5.5 0 0 0-.57-.495l-7 1A.5.5 0 0 0 3 1.5V15H1.5zM11 2v13h1V2.5a.5.5 0 0 0-.5-.5H11zm-2.5 8c-.276 0-.5-.448-.5-1s.224-1 .5-1 .5.448.5 1-.224 1-.5 1z"/>
+          </svg>
+        </div>
+        <div class="row">
+          <label class="mx-auto" for="basic-url">Your name:</label>
+          <div class="input-group mb-3 mx-auto">
+            <input type="text" class="form-control" id="basic-url" [(ngModel)]="joiningUsername">
+          </div>
+          <button class="btn btn-primary mx-auto" (click)="joinPlanningRoom()">Join</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="container-fluid" *ngIf="room && currentUser">
   <div class="d-flex flex-row">
     <div class="p-2">
       <h2>Room</h2></div>

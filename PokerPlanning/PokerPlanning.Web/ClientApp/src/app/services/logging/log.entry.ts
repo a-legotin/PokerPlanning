@@ -1,6 +1,5 @@
 
 export class LogEntry {
-  entryDate: Date = new Date();
   message = '';
   level: LogLevel = LogLevel.Debug;
   extraInfo: any[] = [];
@@ -14,7 +13,7 @@ export class LogEntry {
       val = new Date() + ' - ';
     }
     val += 'Type: ' + LogLevel[this.level];
-    val += '- Message: ';
+    val += '- Message: ' + this.message;
     if (this.extraInfo.length) {
       val += ' - Extra Info: '
         + this.formatParams(this.extraInfo);
