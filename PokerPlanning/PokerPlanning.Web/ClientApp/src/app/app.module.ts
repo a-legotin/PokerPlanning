@@ -13,6 +13,8 @@ import {TableComponent} from './components/room/table/table.component';
 import {RoomUsersComponent} from './components/room/users/users.component';
 import {SignalrConnectionFactory} from './services/signalrConnectionFactory';
 import {BaseUriProvider} from './services/baseUriProvider';
+import {LogService} from './services/logging/log.service';
+import {LogPublishersService} from './services/logging/log.publisher.service';
 
 @NgModule({
   declarations: [
@@ -32,7 +34,7 @@ import {BaseUriProvider} from './services/baseUriProvider';
       {path: 'room/:id', component: RoomComponent},
     ])
   ],
-  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider],
+  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

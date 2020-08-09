@@ -3,6 +3,7 @@ import {ActivatedRoute} from '@angular/router';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
 import {SignalrConnectionFactory} from '../../services/signalrConnectionFactory';
+import {LogService} from '../../services/logging/log.service';
 
 @Component({
   selector: 'app-room',
@@ -14,12 +15,13 @@ export class RoomComponent implements OnInit {
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
-              private connectionFactory: SignalrConnectionFactory) {
+              private connectionFactory: SignalrConnectionFactory,
+              private log: LogService) {
   }
 
   ngOnInit(): void {
     const roomId = this.route.snapshot.paramMap.get('id');
-    console.log(roomId);
+    this.log.debug(roomId);
     this.roomService.getRoom(roomId).subscribe(room => (this.room = room));
   }
 }

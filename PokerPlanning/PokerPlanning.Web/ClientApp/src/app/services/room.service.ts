@@ -1,9 +1,10 @@
-import {HttpClient, HttpErrorResponse, HttpHeaders, HttpParams} from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {Observable, of, throwError, throwError as observableThrowError} from 'rxjs';
-import {catchError, map, tap} from 'rxjs/operators';
+import {Observable, of} from 'rxjs';
+import {catchError} from 'rxjs/operators';
 
 import {NewRoomRequest, Room} from '../models/room';
+import {LogService} from './logging/log.service';
 
 @Injectable()
 export class RoomService {
@@ -18,7 +19,8 @@ export class RoomService {
     })
   };
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient,
+              private log: LogService) {
   }
 
   getRoom(id: string): Observable<Room> {
@@ -39,10 +41,10 @@ export class RoomService {
 
       if (error.error instanceof ErrorEvent) {
         // Client-side errors
-        console.log(`Server error: ${error.error.message}`);
+        this.log.debug(`Server error: ${error.error.message}`);
       } else {
         // Server-side errors
-        console.log(`Error code: ${error.status}\nMessage: ${error.message}`);
+        this.log.debug(`Error code: ${error.status}\nMessage: ${error.message}`);
       }
       return of(result as T);
     };
