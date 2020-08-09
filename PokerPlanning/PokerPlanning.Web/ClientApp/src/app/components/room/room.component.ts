@@ -2,6 +2,7 @@ import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {RoomService} from '../../services/room.service';
 import {Room} from '../../models/room';
+import {SignalrConnectionFactory} from '../../services/signalrConnectionFactory';
 
 @Component({
   selector: 'app-room',
@@ -12,7 +13,8 @@ export class RoomComponent implements OnInit {
   room: Room;
 
   constructor(private route: ActivatedRoute,
-              private roomService: RoomService) {
+              private roomService: RoomService,
+              private connectionFactory: SignalrConnectionFactory) {
   }
 
   ngOnInit(): void {

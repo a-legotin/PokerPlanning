@@ -4,3 +4,7 @@ export class Room {
   id: string;
   users: User[];
 }
+
+export class NewRoomRequest {
+  ownerName: string;
+}
