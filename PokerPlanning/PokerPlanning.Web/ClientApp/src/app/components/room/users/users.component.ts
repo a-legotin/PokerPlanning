@@ -16,5 +16,6 @@ export class RoomUsersComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    console.log(this.room);
   }
 }

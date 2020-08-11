@@ -4,7 +4,7 @@
     <span class="badge badge-secondary badge-pill">{{room.users.length}}</span>
   </h5>
   <ul class="list-group">
-    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of room.users">
+    <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let user of room.users;">
       <div>{{user.name}}</div>
       <div *ngIf="user.role === 0">
         <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-emoji-sunglasses" fill="currentColor"

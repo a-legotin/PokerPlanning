@@ -18,7 +18,7 @@ export class HomeComponent {
   public username: string = null;
 
   public createPlanningRoom(): void {
-    this.roomService.createRoom(this.username)
+    this.roomService.createRoom()
       .subscribe(value => {
         this.currentUserService.assign(this.username, value);
         this.router.navigate(['/room', value]);

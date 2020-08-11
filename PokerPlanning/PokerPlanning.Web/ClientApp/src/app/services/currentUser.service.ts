@@ -22,5 +22,6 @@ export class CurrentUserService {
         return key;
       }
     }
+    return  '';
   }
 }

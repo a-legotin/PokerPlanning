@@ -34,12 +34,6 @@ namespace PokerPlanning.Web.Controllers
         public IActionResult AddRoom([FromBody] PlanningRequest request)
         {
             var room = new PlanningRoom();
-            room.Users.Add(new PlanningUser()
-            {
-                Id = Guid.NewGuid(),
-                Name = request.OwnerName,
-                Role =  UserRole.Owner
-            });
             roomRepository.Insert(room);
             return Ok(room.Id);
         }

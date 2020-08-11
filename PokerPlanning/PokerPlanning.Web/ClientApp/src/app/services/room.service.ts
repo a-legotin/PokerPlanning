@@ -28,9 +28,8 @@ export class RoomService {
     return this.http.get<Room>(url).pipe(catchError(this.handleError));
   }
 
-  createRoom(username: string): Observable<string> {
+  createRoom(): Observable<string> {
     const newRoomRequest = new NewRoomRequest();
-    newRoomRequest.ownerName = username;
     return this.http.post<string>(this.REST_API_SERVER + this.roomUrl, newRoomRequest, this.httpOptions).pipe(
       catchError(this.handleError)
     );

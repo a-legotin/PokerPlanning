@@ -1,4 +1,4 @@
-enum UserRole {
+export enum UserRole {
   Owner = 0,
   Member = 1,
   Observer = 2
