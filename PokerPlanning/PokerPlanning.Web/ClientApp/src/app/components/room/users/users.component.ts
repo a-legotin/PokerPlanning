@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {RoomService} from '../../../services/room.service';
-import {Room} from '../../../models/room';
+import {User, UserRole} from '../../../models/user';
 
 @Component({
   selector: 'app-room-users',
@@ -9,13 +9,24 @@ import {Room} from '../../../models/room';
 })
 
 export class RoomUsersComponent implements OnInit {
-  @Input() room: Room;
+  @Input() users: User[];
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService) {
   }
 
   ngOnInit(): void {
-    console.log(this.room);
+  }
+
+  isOwner(user: User) {
+    return user.role === UserRole.Owner;
+  }
+
+  isMember(user: User) {
+    return user.role === UserRole.Member;
+  }
+
+  isObserver(user: User) {
+    return user.role === UserRole.Observer;
   }
 }

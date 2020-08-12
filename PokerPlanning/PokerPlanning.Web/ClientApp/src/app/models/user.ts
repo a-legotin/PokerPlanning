@@ -8,4 +8,10 @@ export class User {
   id: string;
   name: string;
   role: UserRole;
+
 }
+
+export function isOwner(): boolean {
+  return this.role === UserRole.Owner;
+}
+
