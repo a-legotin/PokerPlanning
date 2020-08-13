@@ -5,7 +5,6 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using PokerPlanning.Core.Data;
 using PokerPlanning.Core.Models;
-using PokerPlanning.Data;
 
 namespace PokerPlanning.Network.Hubs
 {
@@ -78,7 +77,7 @@ namespace PokerPlanning.Network.Hubs
                 }
                 _repository.Update(room);
                 
-                await Clients.AllExcept(connectionId).SendAsync("onUserDisconnected", disconnectedUser);
+                await Clients.AllExcept(connectionId).SendAsync("onUserDisconnected", room.Users);
             }
             await base.OnDisconnectedAsync(exception);
         }

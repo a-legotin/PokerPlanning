@@ -9,4 +9,8 @@ export class BaseUriProvider {
   getBaseUri(): string {
     return this.url;
   }
+
+  getApiUri(): string {
+    return this.url + '/api';
+  }
 }

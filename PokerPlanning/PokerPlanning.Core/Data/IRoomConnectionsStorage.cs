@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Concurrent;
 
-namespace PokerPlanning.Data
+namespace PokerPlanning.Core.Data
 {
     public interface IRoomConnectionsStorage
     {

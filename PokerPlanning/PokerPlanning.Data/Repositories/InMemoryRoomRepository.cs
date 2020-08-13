@@ -1,11 +1,10 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
-using PokerPlanning.Core;
 using PokerPlanning.Core.Data;
 using PokerPlanning.Core.Models;
 
-namespace PokerPlanning.Data
+namespace PokerPlanning.Data.Repositories
 {
     internal class InMemoryRoomRepository : IRoomRepository
     {

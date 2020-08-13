@@ -16,6 +16,7 @@ import {BaseUriProvider} from './services/baseUriProvider';
 import {LogService} from './services/logging/log.service';
 import {LogPublishersService} from './services/logging/log.publisher.service';
 import {CurrentUserService} from './services/currentUser.service';
+import {CardsTemplateService} from './services/cards-template.service';
 
 @NgModule({
   declarations: [
@@ -35,7 +36,7 @@ import {CurrentUserService} from './services/currentUser.service';
       {path: 'room/:id', component: RoomComponent},
     ])
   ],
-  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService, CurrentUserService],
+  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService, CurrentUserService, CardsTemplateService],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -47,8 +47,8 @@ export class RoomComponent implements OnInit {
           this.room.users = users;
         });
 
-        connectionFactory.hubConnection.on('onUserDisconnected', (user) => {
-          this.room.users = this.room.users.filter(obj => obj.id !== user.id);
+        connectionFactory.hubConnection.on('onUserDisconnected', (users) => {
+          this.room.users = users;
         });
         if (!this.isJoining) {
           return;

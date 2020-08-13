@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Concurrent;
+using PokerPlanning.Core.Data;
 
 namespace PokerPlanning.Data
 {
@@ -12,4 +13,5 @@ namespace PokerPlanning.Data
 
         public ConcurrentDictionary<string, Guid> RoomConnections { get; }
     }
+    
 }

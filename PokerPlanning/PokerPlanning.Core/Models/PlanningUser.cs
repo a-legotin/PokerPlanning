@@ -4,7 +4,7 @@ using PokerPlanning.Core.Data;
 namespace PokerPlanning.Core.Models
 {
     [Serializable]
-    public struct PlanningUser : IEntity
+    public class PlanningUser : IEntity
     {
         public string ConnectionId { get; set; }
         public Guid Id { get; set; }
