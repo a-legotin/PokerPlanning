@@ -1,8 +1,10 @@
 import {User} from './user';
+import {Card} from './card';
 
 export class Room {
-  id: string;
-  users: User[];
+  public id: string;
+  public users: User[];
+  public cards: Card[];
 }
 
 

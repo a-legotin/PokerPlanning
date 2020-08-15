@@ -17,7 +17,7 @@ namespace PokerPlanning.Data.Repositories
             var template = new PlanningCardsTemplate()
             {
                 Id = Guid.NewGuid(),
-                CardSet = new PlanningCardSet
+                Cards = new PlanningCardSet
                 {
                     Cards = new HashSet<PlanningCard>(Enumerable.Range(1, 6)
                         .Select(num => new PlanningCard

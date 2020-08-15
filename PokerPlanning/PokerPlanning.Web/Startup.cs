@@ -26,7 +26,7 @@ namespace PokerPlanning.Web
             { 
                 options.EnableDetailedErrors = true; 
             }); 
-            services.AddControllersWithViews();
+            services.AddControllersWithViews().AddNewtonsoftJson();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
             {
@@ -64,9 +64,9 @@ namespace PokerPlanning.Web
             app.UseCors(builder =>
             {
                 builder.WithOrigins("http://localhost:5000")
-                    .AllowAnyHeader()
-                    .WithMethods("GET", "POST")
-                    .AllowCredentials();
+                    .AllowCredentials() 
+                    .AllowAnyMethod() 
+                    .AllowAnyHeader(); 
             });
             
             app.UseEndpoints(endpoints =>

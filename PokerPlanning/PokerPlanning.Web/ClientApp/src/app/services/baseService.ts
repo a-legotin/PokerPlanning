@@ -1,7 +1,7 @@
-import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {HttpClient, HttpErrorResponse, HttpHeaders} from '@angular/common/http';
 import {LogService} from './logging/log.service';
 import {BaseUriProvider} from './baseUriProvider';
-import {Observable, of} from 'rxjs';
+import {EMPTY} from 'rxjs';
 
 export class BaseService {
   constructor(protected http: HttpClient,
@@ -13,21 +13,19 @@ export class BaseService {
   public httpOptions = {
     headers: new HttpHeaders({
       'Content-Type': 'application/json',
-      'Authorization': 'jwt-token'
+      'Accept': 'application/json'
     })
   };
 
-  public handleError<T>(operation = 'operation', result?: T) {
-    return (error: any): Observable<T> => {
-
-      if (error.error instanceof ErrorEvent) {
-        // Client-side errors
-        this.log.debug(`Server error: ${error.error.message}`);
-      } else {
-        // Server-side errors
-        this.log.debug(`Error code: ${error.status}\nMessage: ${error.message}`);
-      }
-      return of(result as T);
-    };
+  public handleError(error: HttpErrorResponse) {
+    if (error.error instanceof Error) {
+      // A client-side or network error occurred. Handle it accordingly.
+      console.error('An error occurred:', error.error.message);
+    } else {
+      // The backend returned an unsuccessful response code.
+      // The response body may contain clues as to what went wrong,
+      console.error(`Backend returned code ${error.status}, body was: ${error.error}`);
+    }
+    return EMPTY;
   }
 }

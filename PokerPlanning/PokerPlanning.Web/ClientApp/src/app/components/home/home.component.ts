@@ -23,13 +23,19 @@ export class HomeComponent {
 
   public username: string = null;
   public cardTemplates: CardTemplate[];
+  public currentTemplate: CardTemplate;
 
   public createPlanningRoom(): void {
-    this.roomService.createRoom()
+    this.roomService.createRoom(this.currentTemplate.cards)
       .subscribe(value => {
         this.currentUserService.assign(this.username, value);
         this.router.navigate(['/room', value]);
       });
+  }
+
+  onChanged(template: CardTemplate) {
+    this.currentTemplate = template;
+    this.log.debug(this.currentTemplate.id);
   }
 
   public getAllTemplates(): void {

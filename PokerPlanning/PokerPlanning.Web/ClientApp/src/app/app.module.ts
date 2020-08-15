@@ -17,6 +17,9 @@ import {LogService} from './services/logging/log.service';
 import {LogPublishersService} from './services/logging/log.publisher.service';
 import {CurrentUserService} from './services/currentUser.service';
 import {CardsTemplateService} from './services/cards-template.service';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {CardsTemplatesComponent} from './components/cards/templates/cards.templates.component';
+import {CardsComponent} from './components/cards/cards.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +28,9 @@ import {CardsTemplateService} from './services/cards-template.service';
     HomeComponent,
     RoomComponent,
     TableComponent,
-    RoomUsersComponent
+    RoomUsersComponent,
+    CardsTemplatesComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -34,9 +39,10 @@ import {CardsTemplateService} from './services/cards-template.service';
     RouterModule.forRoot([
       {path: '', component: HomeComponent, pathMatch: 'full'},
       {path: 'room/:id', component: RoomComponent},
-    ])
+    ]),
+    NgbModule
   ],
-  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService, CurrentUserService, CardsTemplateService],
+  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService, CurrentUserService, CardsTemplateService, CardsTemplatesComponent, CardsComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

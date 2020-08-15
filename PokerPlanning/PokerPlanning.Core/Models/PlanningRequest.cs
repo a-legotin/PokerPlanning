@@ -1,7 +1,12 @@
+using System;
+using Newtonsoft.Json;
+
 namespace PokerPlanning.Core.Models
 {
+    [Serializable]
     public class PlanningRequest
     {
-        public string OwnerName { get; set; }
+        [JsonProperty("cards")]
+        public PlanningCardSet Cards { get; set; }
     }
 }

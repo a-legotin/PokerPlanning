@@ -3,6 +3,7 @@ using System.Net.Security;
 
 namespace PokerPlanning.Core.Models
 {
+    [Serializable]
     public class PlanningCard
     {
         public Guid Id { get; set; }

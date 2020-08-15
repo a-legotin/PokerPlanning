@@ -7,6 +7,6 @@ namespace PokerPlanning.Core.Models
     {
         public Guid Id { get; set; }
         
-        public PlanningCardSet CardSet { get; set; }
+        public PlanningCardSet Cards { get; set; }
     }
 }

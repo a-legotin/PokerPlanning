@@ -1,6 +1,6 @@
 import {CardTemplate} from './cardTemplate';
+import {Card} from './card';
 
 export class NewRoomRequest {
-    ownerName: string;
-    cardsTemplate: CardTemplate;
+    public cards: Card[];
 }
