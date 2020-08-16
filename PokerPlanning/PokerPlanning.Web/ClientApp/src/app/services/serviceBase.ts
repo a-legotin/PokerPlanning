@@ -3,7 +3,7 @@ import {LogService} from './logging/log.service';
 import {BaseUriProvider} from './baseUriProvider';
 import {EMPTY} from 'rxjs';
 
-export class BaseService {
+export class ServiceBase {
   constructor(protected http: HttpClient,
               protected log: LogService,
               protected uriProvider: BaseUriProvider) {
@@ -29,3 +29,4 @@ export class BaseService {
     return EMPTY;
   }
 }
+

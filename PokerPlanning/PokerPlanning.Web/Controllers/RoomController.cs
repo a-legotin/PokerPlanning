@@ -33,21 +33,24 @@ namespace PokerPlanning.Web.Controllers
         [Route("")]
         public async Task<IActionResult> AddRoom([FromBody] PlanningRequest request)
         {
-            var room = new PlanningRoom
+            return await Task.Run(() =>
             {
-                Cards = request.Cards,
-                Users = new HashSet<PlanningUser>(new[]
+                var room = new PlanningRoom
                 {
-                    new PlanningUser()
+                    Cards = request.Cards,
+                    Users = new HashSet<PlanningUser>(new[]
                     {
-                        Name = request.OwnerName,
-                        Role = UserRole.Owner,
-                        Id = Guid.NewGuid()
-                    }
-                })
-            };
-            roomRepository.Insert(room);
-            return Ok(room);
+                        new PlanningUser()
+                        {
+                            Name = request.OwnerName,
+                            Role = UserRole.Owner,
+                            Id = Guid.NewGuid()
+                        }
+                    })
+                };
+                roomRepository.Insert(room);
+                return Ok(room);
+            });
         }
 
         [HttpDelete]

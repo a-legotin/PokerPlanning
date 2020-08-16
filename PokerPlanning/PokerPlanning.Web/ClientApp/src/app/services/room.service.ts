@@ -7,11 +7,11 @@ import {Room} from '../models/room';
 import {LogService} from './logging/log.service';
 import {NewRoomRequest} from '../models/newRoomRequest';
 import {BaseUriProvider} from './baseUriProvider';
-import {BaseService} from './baseService';
+import {ServiceBase} from './serviceBase';
 import {Card} from '../models/card';
 
 @Injectable()
-export class RoomService extends BaseService {
+export class RoomService extends ServiceBase {
   private roomUrl = '/room';
 
   constructor(protected http: HttpClient,

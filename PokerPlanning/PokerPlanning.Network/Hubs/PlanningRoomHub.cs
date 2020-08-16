@@ -18,24 +18,7 @@ namespace PokerPlanning.Network.Hubs
             _repository = repository;
             _roomConnectionsStorage = roomConnectionsStorage;
         }
-
-        public async Task CreatePlanningRoom(string userName)
-        {
-            var user = new PlanningUser
-            {
-                Id = Guid.NewGuid(),
-                Name = userName,
-                ConnectionId = Context.ConnectionId,
-                Role = UserRole.Owner
-            };
-
-            var room = new PlanningRoom();
-            room.Users.Add(user);
-
-            _repository.Insert(room);
-            await Clients.Caller.SendAsync("onRoomCreated", room);
-        }
-
+        
         public async Task Join(Guid roomId, string userName, UserRole role)
         {
             if (string.IsNullOrEmpty(userName))
@@ -68,11 +51,6 @@ namespace PokerPlanning.Network.Hubs
                 await Clients.Caller.SendAsync("onJoined", user);
                 await Clients.All.SendAsync("onUsersChanged", room.Users);
             }
-        }
-
-        public override Task OnConnectedAsync()
-        {
-            return base.OnConnectedAsync();
         }
 
         public override async Task OnDisconnectedAsync(Exception exception)

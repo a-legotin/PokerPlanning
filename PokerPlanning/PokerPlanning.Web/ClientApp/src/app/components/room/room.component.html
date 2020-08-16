@@ -57,7 +57,7 @@
       </div>
     </div>
 
-    <div class="d-flex flex-row">
+    <div class="d-flex flex-row" *ngIf="roundHub">
       <div class="p-2"><p>{{room.id}}</p></div>
     </div>
 
@@ -67,8 +67,8 @@
         <app-room-users [users]="room.users">Loading...</app-room-users>
       </div>
 
-      <div class="col-md-6">
-        <app-room-table [room]="room">Loading...</app-room-table>
+      <div class="col-md-9">
+        <app-room-table [room]="room" [currentUser]="currentUser" [roundHub]="roundHub">Loading...</app-room-table>
       </div>
     </div>
   </div>

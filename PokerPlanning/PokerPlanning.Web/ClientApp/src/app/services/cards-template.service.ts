@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BaseService} from './baseService';
+import {ServiceBase} from './serviceBase';
 import {HttpClient} from '@angular/common/http';
 import {LogService} from './logging/log.service';
 import {BaseUriProvider} from './baseUriProvider';
@@ -8,7 +8,7 @@ import {catchError} from 'rxjs/operators';
 import {CardTemplate} from '../models/cardTemplate';
 
 @Injectable()
-export class CardsTemplateService extends BaseService {
+export class CardsTemplateService extends ServiceBase {
 
   private url = '/card/template';
 

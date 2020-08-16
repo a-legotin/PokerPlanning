@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {LogService} from './logging/log.service';
-import {User, UserRole} from '../models/user';
+import {User} from '../models/user';
+import {UserRole} from "../models/userRole";
 
 @Injectable({
   providedIn: 'root'
