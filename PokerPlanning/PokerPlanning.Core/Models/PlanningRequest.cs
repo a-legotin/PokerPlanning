@@ -8,5 +8,8 @@ namespace PokerPlanning.Core.Models
     {
         [JsonProperty("cards")]
         public PlanningCardSet Cards { get; set; }
+        
+        [JsonProperty("ownerName")]
+        public string OwnerName { get; set; }
     }
 }

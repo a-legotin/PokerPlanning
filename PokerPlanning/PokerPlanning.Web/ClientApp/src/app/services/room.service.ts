@@ -1,6 +1,6 @@
-import {HttpClient, HttpErrorResponse} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Injectable} from '@angular/core';
-import {EMPTY, Observable} from 'rxjs';
+import {Observable} from 'rxjs';
 import {catchError} from 'rxjs/operators';
 
 import {Room} from '../models/room';
@@ -25,12 +25,12 @@ export class RoomService extends BaseService {
     return this.http.get<Room>(url).pipe(catchError(this.handleError));
   }
 
-  createRoom(cards: Card[]): Observable<string> {
+  createRoom(ownername: string, cards: Card[]): Observable<Room> {
     const newRoomRequest = new NewRoomRequest();
     newRoomRequest.cards = cards;
-    const body = JSON.stringify(newRoomRequest);
+    newRoomRequest.ownerName = ownername;
     const uri = this.uriProvider.getApiUri() + this.roomUrl;
-    return this.http.post<string>(uri, newRoomRequest, this.httpOptions).pipe(
+    return this.http.post<Room>(uri, newRoomRequest, this.httpOptions).pipe(
       catchError(this.handleError)
     );
   }

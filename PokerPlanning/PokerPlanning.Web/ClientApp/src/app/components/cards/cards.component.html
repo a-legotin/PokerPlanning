@@ -1,3 +1,7 @@
-<div>
-  Cards goes here
+<div *ngIf="cards">
+  <div class="mx-auto btn-group btn-group-toggle blocks" data-toggle="buttons">
+    <label class="btn btn-outline-primary mr-3 rounded"  *ngFor="let card of cards.cards;">
+      <input type="radio" name="options" id="card-{{card.value}}" autocomplete="off" (click)="vote(card)"> {{card.display}}
+    </label>
+  </div>
 </div>

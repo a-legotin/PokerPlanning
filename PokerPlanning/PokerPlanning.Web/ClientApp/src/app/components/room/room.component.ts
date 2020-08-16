@@ -17,7 +17,6 @@ export class RoomComponent implements OnInit {
   room: Room;
   currentUser: User;
   joiningUsername: string;
-  isJoining: boolean;
 
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
@@ -29,32 +28,30 @@ export class RoomComponent implements OnInit {
 
   ngOnInit(): void {
     const roomId = this.route.snapshot.paramMap.get('id');
-    const currentUserName = this.currentUserService.getCurrentUser(roomId);
-    this.isJoining = currentUserName !== '';
     this.roomService.getRoom(roomId).subscribe(room => {
       this.room = room;
+      this.currentUser = this.currentUserService.getCurrentUser(this.room.id);
+      this.log.debug('Loading room ' + this.room.id + ' with user ' + this.currentUser.name + ' [' + this.currentUser.role + ']');
+      const connectionFactory = this.connectionFactory;
+      this.connectionFactory.signalrConn()
+        .then(() => {
+          connectionFactory.hubConnection.on('onJoined', (user) => {
+            this.currentUser = user;
+          });
+
+          connectionFactory.hubConnection.on('onUsersChanged', (users) => {
+            this.room.users = users;
+          });
+
+          connectionFactory.hubConnection.on('onUserDisconnected', (users) => {
+            this.room.users = users;
+          });
+          if (this.currentUser.id === '') {
+            return;
+          }
+          this.connectionFactory.hubConnection.invoke('join', roomId, this.currentUser.name, UserRole.Owner);
+        });
     });
-    const connectionFactory = this.connectionFactory;
-    this.connectionFactory.signalrConn()
-      .then(() => {
-        connectionFactory.hubConnection.on('onConnected', (user, room) => {
-          this.currentUser = user;
-          this.room = room;
-          this.isJoining = false;
-        });
-
-        connectionFactory.hubConnection.on('onUsersChanged', (users) => {
-          this.room.users = users;
-        });
-
-        connectionFactory.hubConnection.on('onUserDisconnected', (users) => {
-          this.room.users = users;
-        });
-        if (!this.isJoining) {
-          return;
-        }
-        this.connectionFactory.hubConnection.invoke('join', roomId, currentUserName, UserRole.Owner);
-      });
   }
 
   public joinPlanningRoom(): void {
@@ -76,5 +73,13 @@ export class RoomComponent implements OnInit {
       document.removeEventListener('copy', null);
     });
     document.execCommand('copy');
+  }
+
+  isCurrentUserUndefined(): boolean {
+    return this.currentUser.id === '' && this.currentUser.role === UserRole.Undefined;
+  }
+
+  isCurrentUserOwner(): boolean {
+    return this.currentUser.id !== '' && this.currentUser.role === UserRole.Owner;
   }
 }

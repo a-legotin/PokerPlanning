@@ -1,11 +1,8 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Text;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using PokerPlanning.Core.Data;
 using PokerPlanning.Core.Models;
 
@@ -36,9 +33,21 @@ namespace PokerPlanning.Web.Controllers
         [Route("")]
         public async Task<IActionResult> AddRoom([FromBody] PlanningRequest request)
         {
-            var room = new PlanningRoom {Cards = request.Cards};
+            var room = new PlanningRoom
+            {
+                Cards = request.Cards,
+                Users = new HashSet<PlanningUser>(new[]
+                {
+                    new PlanningUser()
+                    {
+                        Name = request.OwnerName,
+                        Role = UserRole.Owner,
+                        Id = Guid.NewGuid()
+                    }
+                })
+            };
             roomRepository.Insert(room);
-            return Ok(room.Id);
+            return Ok(room);
         }
 
         [HttpDelete]

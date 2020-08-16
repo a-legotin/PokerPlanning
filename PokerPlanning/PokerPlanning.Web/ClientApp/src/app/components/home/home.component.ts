@@ -26,10 +26,10 @@ export class HomeComponent {
   public currentTemplate: CardTemplate;
 
   public createPlanningRoom(): void {
-    this.roomService.createRoom(this.currentTemplate.cards)
+    this.roomService.createRoom(this.username, this.currentTemplate.cards)
       .subscribe(value => {
-        this.currentUserService.assign(this.username, value);
-        this.router.navigate(['/room', value]);
+        this.currentUserService.assign(value.users[0], value.id);
+        this.router.navigate(['/room', value.id]);
       });
   }
 

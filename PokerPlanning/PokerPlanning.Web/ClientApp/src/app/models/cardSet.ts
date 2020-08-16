@@ -1,7 +1,5 @@
 import {Card} from './card';
 
-export class CardTemplate {
-    id: string;
+export class CardSet {
     cards: Card[];
 }
-
