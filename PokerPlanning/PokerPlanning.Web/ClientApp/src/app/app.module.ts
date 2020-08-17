@@ -20,6 +20,7 @@ import {CardsTemplateService} from './services/cards-template.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import {CardsTemplatesComponent} from './components/cards/templates/cards.templates.component';
 import {CardsComponent} from './components/cards/cards.component';
+import {VotesComponent} from './components/room/votes/votes.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import {CardsComponent} from './components/cards/cards.component';
     TableComponent,
     RoomUsersComponent,
     CardsTemplatesComponent,
-    CardsComponent
+    CardsComponent,
+    VotesComponent
   ],
   imports: [
     BrowserModule.withServerTransition({appId: 'ng-cli-universal'}),
@@ -42,7 +44,16 @@ import {CardsComponent} from './components/cards/cards.component';
     ]),
     NgbModule
   ],
-  providers: [RoomService, SignalrConnectionFactory, BaseUriProvider, LogService, LogPublishersService, CurrentUserService, CardsTemplateService, CardsTemplatesComponent, CardsComponent],
+  providers: [RoomService,
+    SignalrConnectionFactory,
+    BaseUriProvider,
+    LogService,
+    LogPublishersService,
+    CurrentUserService,
+    CardsTemplateService,
+    CardsTemplatesComponent,
+    CardsComponent,
+    VotesComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using PokerPlanning.Core.Data;
 using PokerPlanning.Core.Models;
+using PokerPlanning.Network.Extensions;
 
 namespace PokerPlanning.Network.Hubs
 {
@@ -27,6 +28,12 @@ namespace PokerPlanning.Network.Hubs
             _repository.Insert(round);
             await Clients.All.SendAsync("onNewRoundStarted", round);
         }
+        
+        public async Task ShowAllVotes(Guid roundId)
+        {
+            var round = _repository.GetById(roundId);
+            await Clients.All.SendAsync("onVotesShown", round.Votes);
+        }
 
         public async Task Vote(Guid roundId, PlanningUser user, PlanningCard card)
         {
@@ -36,9 +43,9 @@ namespace PokerPlanning.Network.Hubs
                 Id = Guid.NewGuid(),
                 RoundId = round.Id,
                 Card = card,
-                UserId = user.Id
+                User = user
             };
-            round.Votes.Add(vote);
+            round.Votes.AddOrUpdate(vote);
             _repository.Update(round);
             await Clients.All.SendAsync("onUserVoted", vote);
         }

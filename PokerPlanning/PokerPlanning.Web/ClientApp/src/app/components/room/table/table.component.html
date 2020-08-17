@@ -15,8 +15,12 @@
       </div>
       <button type="button" class="btn btn-success d-inline-flex p-2" (click)="spinNextRound()">Next round</button>
     </div>
-    <div class="row pt-2">
+    <div class="row pt-2 pb-3">
       <app-cards [cards]="room.cards" [roundHub]="roundHub" [currentUser]="currentUser" [currentRound]="currentRound"></app-cards>
+    </div>
+
+    <div class="row pt-4 border-top" *ngIf="allVotes">
+      <app-votes class="container-fluid pl-0 pr-0" [allVotes]="allVotes"></app-votes>
     </div>
   </div>
 </div>

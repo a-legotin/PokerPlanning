@@ -1,6 +1,6 @@
 export class Card {
     id: string;
-    value: string;
+    value: number;
     display: string;
 }
 

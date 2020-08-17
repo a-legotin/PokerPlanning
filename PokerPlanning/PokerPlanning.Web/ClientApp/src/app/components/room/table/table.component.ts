@@ -29,13 +29,16 @@ export class TableComponent implements OnChanges {
         this.currentRound = round;
         this.allVotes = null;
       });
+      this.roundHub.on('onVotesShown', (votes) => {
+        this.allVotes = votes;
+      });
       this.spinNextRound();
     }
   }
 
   showAllVotes() {
     this.log.debug('Showing votes');
-    this.roundHub.invoke('showAllVotes', this.room.id, this.currentUser.id);
+    this.roundHub.invoke('showAllVotes', this.currentRound.id);
   }
 
   spinNextRound() {
