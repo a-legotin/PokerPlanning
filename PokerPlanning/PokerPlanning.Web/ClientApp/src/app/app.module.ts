@@ -18,8 +18,8 @@ import {LogPublishersService} from './services/logging/log.publisher.service';
 import {CurrentUserService} from './services/currentUser.service';
 import {CardsTemplateService} from './services/cards-template.service';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
-import {CardsTemplatesComponent} from './components/cards/templates/cards.templates.component';
-import {CardsComponent} from './components/cards/cards.component';
+import {CardsTemplatesComponent} from './components/room/cards/templates/cards.templates.component';
+import {CardsComponent} from './components/room/cards/cards.component';
 import {VotesComponent} from './components/room/votes/votes.component';
 
 @NgModule({

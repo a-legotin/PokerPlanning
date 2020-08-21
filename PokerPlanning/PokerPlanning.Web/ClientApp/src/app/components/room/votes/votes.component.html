@@ -1,19 +1,4 @@
 <div *ngIf="allVotes">
-<!--  <div class="row pb-3">
-    <div class="alert alert-info" role="alert" *ngIf="!isConsensus()">
-      <p class="font-weight-bold"></p>
-    </div>
-    <div class="alert alert-success" role="alert" *ngIf="isConsensus()">
-      <h4 class="alert-heading">Consensus!</h4>
-    </div>
-  </div>
-  <div class="row">
-    <ul class="list-group" *ngFor="let vote of allVotes;">
-      <li class="list-group-item d-flex justify-content-between align-items-center">
-        <h5>{{vote.user.name}} <span class="badge badge-pill">{{vote.card.value}}</span></h5>
-      </li>
-    </ul>
-  </div>-->
   <div class="card border-light">
     <h5 class="card-header" *ngIf="!isConsensus()">Avg: {{getAverage()}}</h5>
     <h5 class="card-header bg-success" *ngIf="isConsensus()">Consensus!</h5>

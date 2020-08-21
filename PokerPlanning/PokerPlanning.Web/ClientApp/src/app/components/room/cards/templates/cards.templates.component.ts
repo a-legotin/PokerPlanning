@@ -1,6 +1,6 @@
 import {Component, Input, OnInit, Output, EventEmitter} from '@angular/core';
-import {CardTemplate} from '../../../models/cardTemplate';
-import {LogService} from '../../../services/logging/log.service';
+import {CardTemplate} from '../../../../models/cardTemplate';
+import {LogService} from '../../../../services/logging/log.service';
 
 @Component({
   selector: 'app-cards-templates',

@@ -1,10 +1,10 @@
 import {Component, Input, OnChanges, OnInit} from '@angular/core';
-import {Card} from '../../models/card';
-import {LogService} from '../../services/logging/log.service';
-import {CardSet} from '../../models/cardSet';
+import {Card} from '../../../models/card';
+import {LogService} from '../../../services/logging/log.service';
+import {CardSet} from '../../../models/cardSet';
 import {HubConnection} from '@microsoft/signalr';
-import {PlanningRound} from '../../models/planningRound';
-import {User} from '../../models/user';
+import {PlanningRound} from '../../../models/planningRound';
+import {User} from '../../../models/user';
 
 
 @Component({
@@ -34,7 +34,7 @@ export class CardsComponent implements OnChanges {
 
   vote(card: Card) {
     this.votedCard = card;
-    this.roundHub.invoke('vote', this.currentRound.id, this.currentUser, this.votedCard);
+    this.roundHub.invoke('vote', this.currentRound, this.currentUser, this.votedCard);
     this.log.debug('Voted:' + this.votedCard.display + ' by ' + this.currentUser.id + ' in round ' + this.currentRound.id);
   }
 }
