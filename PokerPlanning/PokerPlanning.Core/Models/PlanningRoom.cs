@@ -8,10 +8,11 @@ namespace PokerPlanning.Core.Models
     {
         public Guid Id { get; set; }
         public HashSet<PlanningUser> Users { get; set; }
-        public PlanningCardSet Cards { get; set; }
+        public HashSet<PlanningCard> Cards { get; set; }
 
         public PlanningRoom()
         {
+            Cards = new HashSet<PlanningCard>();
             Users = new HashSet<PlanningUser>();
             Id = Guid.NewGuid();
         }

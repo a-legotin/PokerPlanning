@@ -35,6 +35,10 @@ namespace PokerPlanning.Web.Controllers
         {
             return await Task.Run(() =>
             {
+                if (request.Cards?.Count < 1)
+                {
+                    return (ActionResult)BadRequest();
+                }
                 var room = new PlanningRoom
                 {
                     Cards = request.Cards,

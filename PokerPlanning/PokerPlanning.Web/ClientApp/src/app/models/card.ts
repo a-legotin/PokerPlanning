@@ -1,6 +1,13 @@
+import * as uuid from 'uuid';
+
 export class Card {
+  constructor() {
+    this.value = '';
+    this.display = '';
+    this.id = uuid.v4();
+  }
     id: string;
-    value: number;
+    value: string;
     display: string;
 }
 

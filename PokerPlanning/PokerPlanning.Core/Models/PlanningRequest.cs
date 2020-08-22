@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 
 namespace PokerPlanning.Core.Models
@@ -7,7 +8,7 @@ namespace PokerPlanning.Core.Models
     public class PlanningRequest
     {
         [JsonProperty("cards")]
-        public PlanningCardSet Cards { get; set; }
+        public HashSet<PlanningCard> Cards { get; set; }
         
         [JsonProperty("ownerName")]
         public string OwnerName { get; set; }

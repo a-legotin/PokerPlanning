@@ -16,9 +16,15 @@ export class VotesComponent implements OnInit {
   }
 
   getAverage(): number {
-    return this.allVotes.reduce(function (avg, value, _, { length }) {
-      return avg + value.card.value / length;
+    return this.allVotes.filter(item => this.isNumber(item.card.value)).reduce(function (avg, value, _, { length }) {
+      return avg + Number(value.card.value) / length;
     }, 0);
+  }
+
+  private isNumber(value: string | number): boolean {
+    return ((value != null) &&
+      (value !== '') &&
+      !isNaN(Number(value.toString())));
   }
 
   isConsensus(): boolean {

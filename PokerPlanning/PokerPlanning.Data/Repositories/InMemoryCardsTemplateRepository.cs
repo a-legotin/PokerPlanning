@@ -18,16 +18,13 @@ namespace PokerPlanning.Data.Repositories
             {
                 Id = Guid.NewGuid(),
                 Name = "Test template",
-                Cards = new PlanningCardSet
-                {
-                    Cards = new HashSet<PlanningCard>(Enumerable.Range(1, 6)
-                        .Select(num => new PlanningCard
-                        {
-                            Id = Guid.NewGuid(),
-                            Display = num.ToString(),
-                            Value = num.ToString()
-                        }))
-                }
+                Cards = new HashSet<PlanningCard>(Enumerable.Range(1, 6)
+                    .Select(num => new PlanningCard
+                    {
+                        Id = Guid.NewGuid(),
+                        Display = num.ToString(),
+                        Value = num.ToString()
+                    }))
             };
             _templates.TryAdd(template.Id, template);
         }
@@ -36,8 +33,8 @@ namespace PokerPlanning.Data.Repositories
 
         public PlanningCardsTemplate GetById(Guid id)
         {
-            return !_templates.TryGetValue(id, out var room) 
-                ? null 
+            return !_templates.TryGetValue(id, out var room)
+                ? null
                 : room;
         }
 
@@ -48,9 +45,9 @@ namespace PokerPlanning.Data.Repositories
 
         public void Update(PlanningCardsTemplate entity)
         {
-            if (!_templates.ContainsKey(entity.Id)) 
+            if (!_templates.ContainsKey(entity.Id))
                 return;
-            _templates[entity.Id] =  entity;
+            _templates[entity.Id] = entity;
         }
 
         public void Delete(Guid id)

@@ -5,6 +5,7 @@ import {CurrentUserService} from '../../services/currentUser.service';
 import {CardsTemplateService} from '../../services/cards-template.service';
 import {CardTemplate} from '../../models/cardTemplate';
 import {LogService} from '../../services/logging/log.service';
+import {Card} from '../../models/card';
 
 @Component({
   selector: 'app-home',
@@ -24,16 +25,20 @@ export class HomeComponent {
   public username: string = null;
   public cardTemplates: CardTemplate[];
   public currentTemplate: CardTemplate;
+  private cards: Card[];
 
   public createPlanningRoom(): void {
-    this.roomService.createRoom(this.username, this.currentTemplate.cards)
+    if (this.currentTemplate !== null) {
+      this.cards = this.currentTemplate.cards;
+    }
+    this.roomService.createRoom(this.username, this.cards)
       .subscribe(value => {
         this.currentUserService.assign(value.users[0], value.id);
         this.router.navigate(['/room', value.id]);
       });
   }
 
-  onChanged(template: CardTemplate) {
+  onTemplatesChanged(template: CardTemplate) {
     this.currentTemplate = template;
     this.log.debug(this.currentTemplate.id);
   }
@@ -44,5 +49,18 @@ export class HomeComponent {
         this.cardTemplates = res;
         this.log.debug('Loaded ' + res.length + ' templates');
       });
+  }
+
+  setCardsTab() {
+    this.currentTemplate = null;
+  }
+
+  setTemplatesTab() {
+    this.cards = null;
+  }
+
+  onCardsChanged(cards: Card[]) {
+    this.cards = cards;
+    this.log.debug('Cards changed:' + cards.length);
   }
 }

@@ -25,15 +25,15 @@
       </div>
         <ul ngbNav #nav="ngbNav" class="nav-tabs p-2">
           <li ngbNavItem>
-            <a ngbNavLink>Template</a>
+            <a ngbNavLink (click)="setTemplatesTab()">Template</a>
             <ng-template ngbNavContent class="row mx-auto">
-              <app-cards-templates [templates]="cardTemplates" (currentTemplate)="onChanged($event)"></app-cards-templates>
+              <app-cards-templates [templates]="cardTemplates" (currentTemplate)="onTemplatesChanged($event)"></app-cards-templates>
             </ng-template>
           </li>
           <li ngbNavItem>
-            <a ngbNavLink>New cards</a>
-            <ng-template ngbNavContent>
-              <app-cards></app-cards>
+            <a ngbNavLink (click)="setCardsTab()">New cards</a>
+            <ng-template ngbNavContent class="row mx-auto">
+              <app-cards-setup (cardsEmitter)="onCardsChanged($event)"></app-cards-setup>
             </ng-template>
           </li>
         </ul>
