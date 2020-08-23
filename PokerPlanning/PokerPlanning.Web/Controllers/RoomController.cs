@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
@@ -35,13 +36,16 @@ namespace PokerPlanning.Web.Controllers
         {
             return await Task.Run(() =>
             {
-                if (request.Cards?.Count < 1)
+                var validCards = request.Cards
+                    .Where(card => !string.IsNullOrEmpty(card.Display) && !string.IsNullOrEmpty(card.Value))
+                    .ToArray();
+                if (!validCards.Any())
                 {
                     return (ActionResult)BadRequest();
                 }
                 var room = new PlanningRoom
                 {
-                    Cards = request.Cards,
+                    Cards = new HashSet<PlanningCard>(validCards),
                     Users = new HashSet<PlanningUser>(new[]
                     {
                         new PlanningUser()

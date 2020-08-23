@@ -1,7 +1,7 @@
 <div class="row px-3 pt-2">
   <div class="input-group" *ngFor="let card of cards">
-    <input type="text" class="form-control" placeholder="Label" [value]="card.display">
-    <input type="text" class="form-control" placeholder="Value" [value]="card.value">
+    <input type="text" class="form-control" placeholder="Label" [(ngModel)]="card.display">
+    <input type="text" class="form-control" placeholder="Value" [(ngModel)]="card.value">
     <div class="input-group-append pb-sm-1">
         <button class="btn btn-dark" type="button" (click)="removeCard(card.id)">
           <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor"
