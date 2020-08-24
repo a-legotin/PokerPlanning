@@ -18,6 +18,7 @@ export class CardsSetupComponent implements OnInit {
   ngOnInit() {
     const firstCard = new Card();
     this.cards = [firstCard];
+    this.cardsEmitter.emit(this.cards);
   }
 
   addNewCard() {
