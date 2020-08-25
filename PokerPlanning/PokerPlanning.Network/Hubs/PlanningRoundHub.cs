@@ -1,21 +1,26 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
 using PokerPlanning.Core.Data;
 using PokerPlanning.Core.Models;
 using PokerPlanning.Network.Extensions;
+using PokerPlanning.Network.Timers;
 
 namespace PokerPlanning.Network.Hubs
 {
     public class PlanningRoundHub : Hub
     {
         private readonly IPlanningRoundRepository _repository;
+        private readonly IRoundTimersStorage _roundTimersStorage;
         private readonly IRoomRepository _roomRepository;
 
         public PlanningRoundHub(IPlanningRoundRepository repository,
+            IRoundTimersStorage roundTimersStorage,
             IRoomRepository roomRepository)
         {
             _repository = repository;
+            _roundTimersStorage = roundTimersStorage;
             _roomRepository = roomRepository;
         }
         
@@ -29,6 +34,10 @@ namespace PokerPlanning.Network.Hubs
                 TimeTaken = TimeSpan.Zero
             };
             _repository.Insert(round);
+            var room = _roomRepository.GetById(roomId);
+            var connections = room.Users.Select(user => user.ConnectionId);
+            _roundTimersStorage.StartNew(round.Id, connections);
+            
             await Clients.All.SendAsync("onNewRoundStarted", round);
         }
         

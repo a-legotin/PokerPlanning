@@ -6,6 +6,7 @@ import {HubConnection} from '@microsoft/signalr';
 import {LogService} from '../../../services/logging/log.service';
 import {PlanningRound} from '../../../models/planningRound';
 import {Vote} from '../../../models/vote';
+import {Timespan} from '../../../models/TimeSpan';
 
 @Component({
   selector: 'app-room-table',
@@ -18,6 +19,7 @@ export class TableComponent implements OnChanges {
   @Input() roundHub: HubConnection;
   currentRound: PlanningRound;
   allVotes: Vote[];
+  currentRoundSpan: Timespan;
 
   constructor(private route: ActivatedRoute,
               private log: LogService) {
@@ -32,6 +34,22 @@ export class TableComponent implements OnChanges {
       this.roundHub.on('onVotesShown', (votes) => {
         this.allVotes = votes;
       });
+      this.roundHub.on('onRoundTimerTick', (timespan) => {
+        if (!this.currentRoundSpan) {
+          this.currentRoundSpan = timespan;
+        }
+        if (!this.currentRoundSpan.hours !== timespan.hours) {
+          this.currentRoundSpan.hours = timespan.hours;
+        }
+
+        if (!this.currentRoundSpan.minutes !== timespan.minutes) {
+          this.currentRoundSpan.minutes = timespan.minutes;
+        }
+
+        if (!this.currentRoundSpan.seconds !== timespan.seconds) {
+          this.currentRoundSpan.seconds = timespan.seconds;
+        }
+      });
       this.spinNextRound();
     }
   }
@@ -44,5 +62,28 @@ export class TableComponent implements OnChanges {
   spinNextRound() {
     this.log.debug('Spinning new round');
     this.roundHub.invoke('newRound', this.room.id, this.currentUser.id);
+  }
+
+  getDisplayTimer(): string {
+    let hours  = '00';
+    let minutes  = '00';
+    let seconds = '00';
+
+    if (Number(this.currentRoundSpan.hours) < 10) {
+      hours = '0' + this.currentRoundSpan.hours;
+    } else {
+      hours = '' + hours;
+    }
+    if (Number(this.currentRoundSpan.minutes) < 10) {
+      minutes = '0' + this.currentRoundSpan.minutes;
+    } else {
+      minutes = '' + this.currentRoundSpan.minutes;
+    }
+    if (Number(this.currentRoundSpan.seconds) < 10) {
+      seconds = '0' + this.currentRoundSpan.seconds;
+    } else {
+      seconds = '' + this.currentRoundSpan.seconds;
+    }
+    return hours + ':' + minutes + ':' + seconds;
   }
 }

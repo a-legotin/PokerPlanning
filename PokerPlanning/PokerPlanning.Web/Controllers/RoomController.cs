@@ -36,13 +36,17 @@ namespace PokerPlanning.Web.Controllers
         {
             return await Task.Run(() =>
             {
+                if (request?.Cards == null)
+                    return (ActionResult) BadRequest();
+
                 var validCards = request.Cards
                     .Where(card => !string.IsNullOrEmpty(card.Display) && !string.IsNullOrEmpty(card.Value))
                     .ToArray();
                 if (!validCards.Any())
                 {
-                    return (ActionResult)BadRequest();
+                    return (ActionResult) BadRequest();
                 }
+
                 var room = new PlanningRoom
                 {
                     Cards = new HashSet<PlanningCard>(validCards),

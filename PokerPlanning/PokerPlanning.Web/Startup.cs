@@ -36,7 +36,8 @@ namespace PokerPlanning.Web
         
         public void ConfigureContainer(ContainerBuilder builder)
         {
-            builder.RegisterModule(new AutofacModule());
+            builder.RegisterModule(new Data.AutofacModule());
+            builder.RegisterModule(new Core.AutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

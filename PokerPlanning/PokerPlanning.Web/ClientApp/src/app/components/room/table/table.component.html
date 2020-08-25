@@ -6,8 +6,8 @@
     <div class="row border-top">
       <h3>{{currentUser.name}}</h3>
     </div>
-    <div class="row border-top" *ngIf="currentRound">
-      <h6>Current round:</h6><h6>{{currentRound.id}}</h6>
+    <div class="row border-top ng-cloak" *ngIf="currentRound">
+      <h6>Current round: </h6><h6>{{this.currentRoundSpan.minutes}}:{{this.currentRoundSpan.seconds}}</h6>
     </div>
     <div class="row pt-2 border-top">
       <div class="pr-2">
