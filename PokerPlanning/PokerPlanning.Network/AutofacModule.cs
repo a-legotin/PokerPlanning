@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.SignalR;
 using PokerPlanning.Network.Hubs;
 using PokerPlanning.Network.Timers;
 
-namespace PokerPlanning.Core
+namespace PokerPlanning.Network
 {
     public class AutofacModule : Module
     {

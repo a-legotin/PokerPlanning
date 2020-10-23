@@ -7,6 +7,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using PokerPlanning.Data;
 using PokerPlanning.Network.Hubs;
+using AutofacModule = PokerPlanning.Network.AutofacModule;
 
 namespace PokerPlanning.Web
 {
@@ -37,7 +38,7 @@ namespace PokerPlanning.Web
         public void ConfigureContainer(ContainerBuilder builder)
         {
             builder.RegisterModule(new Data.AutofacModule());
-            builder.RegisterModule(new Core.AutofacModule());
+            builder.RegisterModule(new AutofacModule());
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
