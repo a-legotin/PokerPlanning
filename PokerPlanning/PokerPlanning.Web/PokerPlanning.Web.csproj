@@ -7,36 +7,27 @@
         <IsPackable>false</IsPackable>
         <SpaRoot>ClientApp\</SpaRoot>
         <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
-
+        <TargetLatestRuntimePatch>true</TargetLatestRuntimePatch>
         <!-- Set this to true if you enable server-side prerendering -->
         <BuildServerSideRenderer>false</BuildServerSideRenderer>
-        <UserSecretsId>bd843036-93c1-400a-99aa-d466684ed64e</UserSecretsId>
-        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     </PropertyGroup>
 
     <ItemGroup>
-        <PackageReference Include="Autofac" Version="5.2.0" />
-        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="6.0.0" />
-        <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.1.7" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="3.1.6" />
-        <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.10.9" />
-        <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+        <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="3.1.6" />
+        <PackageReference Include="Microsoft.AspNetCore.Diagnostics.EntityFrameworkCore" Version="3.1.6" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.EntityFrameworkCore" Version="3.1.6" />
+        <PackageReference Include="Microsoft.AspNetCore.Identity.UI" Version="3.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="3.1.6" />
+        <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.6" />
+        <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="3.1.4" />
     </ItemGroup>
-
+    
     <ItemGroup>
         <!-- Don't publish the SPA source files, but do show them in the project files list -->
         <Content Remove="$(SpaRoot)**" />
         <None Remove="$(SpaRoot)**" />
         <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <Folder Include="ClientApp\src\assets\images" />
-    </ItemGroup>
-
-    <ItemGroup>
-      <ProjectReference Include="..\PokerPlanning.Data\PokerPlanning.Data.csproj" />
-      <ProjectReference Include="..\PokerPlanning.Network\PokerPlanning.Network.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

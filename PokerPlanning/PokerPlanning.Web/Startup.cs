@@ -1,13 +1,16 @@
-using Autofac;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.Identity.UI;
+using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
+using PokerPlanning.Web.Data;
+using PokerPlanning.Web.Models;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
-using PokerPlanning.Data;
-using PokerPlanning.Network.Hubs;
-using AutofacModule = PokerPlanning.Network.AutofacModule;
 
 namespace PokerPlanning.Web
 {
@@ -23,22 +26,22 @@ namespace PokerPlanning.Web
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddSignalR(options => 
-            { 
-                options.EnableDetailedErrors = true; 
-            }); 
-            services.AddControllersWithViews().AddNewtonsoftJson();
+            services.AddDbContext<ApplicationDbContext>(options =>
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("DefaultConnection")));
+
+            services.AddDefaultIdentity<ApplicationUser>(options => options.SignIn.RequireConfirmedAccount = false)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
+            services.AddIdentityServer()
+                .AddApiAuthorization<ApplicationUser, ApplicationDbContext>();
+
+            services.AddAuthentication()
+                .AddIdentityServerJwt();
+            services.AddControllersWithViews();
+            services.AddRazorPages();
             // In production, the Angular files will be served from this directory
-            services.AddSpaStaticFiles(configuration =>
-            {
-                configuration.RootPath = "ClientApp/dist";
-            });
-        }
-        
-        public void ConfigureContainer(ContainerBuilder builder)
-        {
-            builder.RegisterModule(new Data.AutofacModule());
-            builder.RegisterModule(new AutofacModule());
+            services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -47,6 +50,7 @@ namespace PokerPlanning.Web
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+                app.UseDatabaseErrorPage();
             }
             else
             {
@@ -55,6 +59,7 @@ namespace PokerPlanning.Web
                 app.UseHsts();
             }
 
+            app.UseHttpsRedirection();
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -63,26 +68,22 @@ namespace PokerPlanning.Web
 
             app.UseRouting();
 
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins("http://localhost:5000")
-                    .AllowCredentials() 
-                    .AllowAnyMethod() 
-                    .AllowAnyHeader(); 
-            });
-            
+            app.UseAuthentication();
+            app.UseIdentityServer();
+            app.UseAuthorization();
             app.UseEndpoints(endpoints =>
             {
-                endpoints.MapHub<PlanningRoomHub>("hubs/planning-room");
-                endpoints.MapHub<PlanningRoundHub>("hubs/planning-room/round");
-
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
+                endpoints.MapRazorPages();
             });
 
             app.UseSpa(spa =>
             {
+                // To learn more about options for serving an Angular SPA from ASP.NET Core,
+                // see https://go.microsoft.com/fwlink/?linkid=864501
+
                 spa.Options.SourcePath = "ClientApp";
 
                 if (env.IsDevelopment())
