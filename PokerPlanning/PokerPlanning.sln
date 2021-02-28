@@ -6,7 +6,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerPlanning.Network", "Po
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerPlanning.Data", "PokerPlanning.Data\PokerPlanning.Data.csproj", "{EBEBB7C2-CE41-439A-83E1-5BC3E95ED16F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerPlanning.Web", "PokerPlanning.Web\PokerPlanning.Web.csproj", "{CED9A59C-F4B6-498F-9DB7-2ADD999188D4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "PokerPlanning.Web", "PokerPlanning.Web\PokerPlanning.Web.csproj", "{4C6254A1-C6CB-49FE-85A4-7EC3163387B8}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "infrastructure", "infrastructure", "{0B6E8EB6-59AE-4CD3-A97F-8C765ED0CCF5}"
+ProjectSection(SolutionItems) = preProject
+	..\.gitlab-ci.yml = ..\.gitlab-ci.yml
+	..\.github\workflows\dotnet.yml = ..\.github\workflows\dotnet.yml
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -26,9 +32,9 @@ Global
 		{EBEBB7C2-CE41-439A-83E1-5BC3E95ED16F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{EBEBB7C2-CE41-439A-83E1-5BC3E95ED16F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{EBEBB7C2-CE41-439A-83E1-5BC3E95ED16F}.Release|Any CPU.Build.0 = Release|Any CPU
-		{CED9A59C-F4B6-498F-9DB7-2ADD999188D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{CED9A59C-F4B6-498F-9DB7-2ADD999188D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{CED9A59C-F4B6-498F-9DB7-2ADD999188D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{CED9A59C-F4B6-498F-9DB7-2ADD999188D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C6254A1-C6CB-49FE-85A4-7EC3163387B8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C6254A1-C6CB-49FE-85A4-7EC3163387B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C6254A1-C6CB-49FE-85A4-7EC3163387B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C6254A1-C6CB-49FE-85A4-7EC3163387B8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
