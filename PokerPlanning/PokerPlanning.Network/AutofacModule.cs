@@ -9,7 +9,8 @@ namespace PokerPlanning.Network
     {
         protected override void Load(ContainerBuilder builder)
         {
-            builder.Register(c => new RoundTimers(c.Resolve<IHubContext<PlanningRoundHub>>())).As<IRoundTimersStorage>().SingleInstance();
+            builder.Register(c => new RoundTimers(c.Resolve<IHubContext<PlanningRoundHub>>())).As<IRoundTimersStorage>()
+                .SingleInstance();
         }
     }
 }

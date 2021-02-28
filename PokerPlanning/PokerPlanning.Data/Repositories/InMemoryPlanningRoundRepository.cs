@@ -13,12 +13,10 @@ namespace PokerPlanning.Data.Repositories
 
         public IEnumerable<PlanningRound> GetAll() => _rounds.Values;
 
-        public PlanningRound GetById(Guid id)
-        {
-            return !_rounds.TryGetValue(id, out var room) 
-                ? null 
+        public PlanningRound GetById(Guid id) =>
+            !_rounds.TryGetValue(id, out var room)
+                ? null
                 : room;
-        }
 
         public void Insert(PlanningRound entity)
         {
@@ -27,7 +25,7 @@ namespace PokerPlanning.Data.Repositories
 
         public void Update(PlanningRound entity)
         {
-            if (!_rounds.ContainsKey(entity.Id)) 
+            if (!_rounds.ContainsKey(entity.Id))
                 return;
             _rounds[entity.Id] =  entity;
         }

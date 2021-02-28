@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Concurrent;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.SignalR;
@@ -18,7 +17,7 @@ namespace PokerPlanning.Network.Hubs
             _repository = repository;
             _roomConnectionsStorage = roomConnectionsStorage;
         }
-        
+
         public async Task Join(Guid roomId, string userName, UserRole role)
         {
             if (string.IsNullOrEmpty(userName))

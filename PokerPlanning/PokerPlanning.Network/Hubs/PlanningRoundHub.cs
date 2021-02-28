@@ -12,8 +12,8 @@ namespace PokerPlanning.Network.Hubs
     public class PlanningRoundHub : Hub
     {
         private readonly IPlanningRoundRepository _repository;
-        private readonly IRoundTimersStorage _roundTimersStorage;
         private readonly IRoomRepository _roomRepository;
+        private readonly IRoundTimersStorage _roundTimersStorage;
 
         public PlanningRoundHub(IPlanningRoundRepository repository,
             IRoundTimersStorage roundTimersStorage,
@@ -23,7 +23,7 @@ namespace PokerPlanning.Network.Hubs
             _roundTimersStorage = roundTimersStorage;
             _roomRepository = roomRepository;
         }
-        
+
         public async Task NewRound(Guid roomId, Guid startedBy)
         {
             var round = new PlanningRound
@@ -37,10 +37,10 @@ namespace PokerPlanning.Network.Hubs
             var room = _roomRepository.GetById(roomId);
             var connections = room.Users.Select(user => user.ConnectionId);
             _roundTimersStorage.StartNew(round.Id, connections);
-            
+
             await Clients.All.SendAsync("onNewRoundStarted", round);
         }
-        
+
         public async Task ShowAllVotes(Guid roundId)
         {
             var round = _repository.GetById(roundId);
@@ -60,7 +60,7 @@ namespace PokerPlanning.Network.Hubs
             round.Votes.AddOrUpdate(vote);
             _repository.Update(round);
             var room = _roomRepository.GetById(round.RoomId);
-            if(room == null)
+            if (room == null)
                 return;
             if (room.Users.Count == round.Votes.Count)
                 await ShowAllVotes(round.Id);
