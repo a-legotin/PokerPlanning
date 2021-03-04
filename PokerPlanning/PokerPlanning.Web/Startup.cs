@@ -1,3 +1,4 @@
+using System.Reflection;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -13,15 +14,34 @@ namespace PokerPlanning.Web
 {
     public class Startup
     {
+        public Startup(IWebHostEnvironment env)
+        {
+            var builder = new ConfigurationBuilder()
+                .SetBasePath(env.ContentRootPath)
+                .AddJsonFile($"appsettings.{env.EnvironmentName}.json", optional: false, true)
+                .AddEnvironmentVariables();
+            Configuration = builder.Build();
+        }
+
         public Startup(IConfiguration configuration) => Configuration = configuration;
 
         public IConfiguration Configuration { get; }
 
         public void ConfigureServices(IServiceCollection services)
         {
+            var dbRetryCount = string.IsNullOrEmpty(Configuration["DbRetryCount"])
+                ? 3
+                : int.Parse(Configuration["DbRetryCount"]);
+
             services.AddDbContext<ApplicationDbContext>(options =>
-                options.UseSqlite(
-                    Configuration.GetConnectionString("DefaultConnection")));
+                options.UseNpgsql(
+                    Configuration.GetConnectionString("PostgreSQLConnection"),
+                    b =>
+                    {
+                        b.MigrationsAssembly(typeof(Startup).GetTypeInfo().Assembly.GetName().Name);
+                        b.EnableRetryOnFailure(dbRetryCount);
+                    })
+            );
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
