@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthorizeService } from '../authorize.service';
+import { AuthorizeService } from '../../services/authorization/authorize.service';
 import { Observable } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 

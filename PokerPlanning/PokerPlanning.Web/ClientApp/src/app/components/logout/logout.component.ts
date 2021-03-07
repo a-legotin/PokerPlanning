@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationResultStatus, AuthorizeService } from '../authorize.service';
+import { AuthenticationResultStatus, AuthorizeService } from '../../services/authorization/authorize.service';
 import { BehaviorSubject } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { take } from 'rxjs/operators';
-import { LogoutActions, ApplicationPaths, ReturnUrlType } from '../api-authorization.constants';
+import { LogoutActions, ApplicationPaths, ReturnUrlType } from '../../services/authorization/api-authorization.constants';
 
 // The main responsibility of this component is to handle the user's logout process.
 // This is the starting point for the logout process, which is usually initiated when a
