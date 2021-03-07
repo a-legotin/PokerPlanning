@@ -1,0 +1,14 @@
+version: '2'
+
+services:
+  db:
+    image: postgres
+    restart: always
+    ports:
+      - 8045:5432
+    volumes:
+      - c:/docker/data/postgres:/var/lib/postgresql/data/pgdata
+    environment:
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_USER: postgres
+      PGDATA : /var/lib/postgresql/data/pgdata

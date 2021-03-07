@@ -2,7 +2,6 @@ using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using System.Timers;
 using Microsoft.AspNetCore.SignalR;
@@ -14,7 +13,6 @@ namespace PokerPlanning.Network.Timers
     {
         private readonly IHubContext<PlanningRoundHub> _hub;
         private readonly Timer _timer;
-        private ConcurrentDictionary<Guid, Stopwatch> Stopwatches { get; }
 
         public RoundTimers(IHubContext<PlanningRoundHub> hub)
         {
@@ -25,14 +23,12 @@ namespace PokerPlanning.Network.Timers
             Stopwatches = new ConcurrentDictionary<Guid, Stopwatch>();
         }
 
-        private async void TimerOnElapsed(object sender, ElapsedEventArgs e)
-            => await Task.Run(() =>
-            {
-                foreach (var value in Stopwatches.Values)
-                {
-                    _hub.Clients.All.SendAsync("onRoundTimerTick", value.Elapsed);
-                }
-            });
+        private ConcurrentDictionary<Guid, Stopwatch> Stopwatches { get; }
+
+        public void Dispose()
+        {
+            _timer?.Dispose();
+        }
 
 
         public void StartNew(Guid roundGuid, IEnumerable<string> connections)
@@ -48,9 +44,13 @@ namespace PokerPlanning.Network.Timers
             timer.Stop();
         }
 
-        public void Dispose()
-        {
-            _timer?.Dispose();
-        }
+        private async void TimerOnElapsed(object sender, ElapsedEventArgs e)
+            => await Task.Run(() =>
+            {
+                foreach (var value in Stopwatches.Values)
+                {
+                    _hub.Clients.All.SendAsync("onRoundTimerTick", value.Elapsed);
+                }
+            });
     }
 }

@@ -13,12 +13,10 @@ namespace PokerPlanning.Data.Repositories
 
         public IEnumerable<PlanningRoom> GetAll() => _rooms.Values;
 
-        public PlanningRoom GetById(Guid id)
-        {
-            return !_rooms.TryGetValue(id, out var room) 
-                ? null 
+        public PlanningRoom GetById(Guid id) =>
+            !_rooms.TryGetValue(id, out var room)
+                ? null
                 : room;
-        }
 
         public void Insert(PlanningRoom entity)
         {
@@ -27,7 +25,7 @@ namespace PokerPlanning.Data.Repositories
 
         public void Update(PlanningRoom entity)
         {
-            if (!_rooms.ContainsKey(entity.Id)) 
+            if (!_rooms.ContainsKey(entity.Id))
                 return;
             _rooms[entity.Id] =  entity;
         }

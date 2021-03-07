@@ -1,4 +1,4 @@
-image: mcr.microsoft.com/dotnet/core/sdk:3.1
+image: mcr.microsoft.com/dotnet/sdk:5.0
 
 stages:
     - build
@@ -11,10 +11,9 @@ before_script:
     - apt install nodejs -y -q
     - node --version
     - npm --version
-    - cd PokerPlanning/
-    - "dotnet restore"
 
 build:
     stage: build
     script:
-        - "dotnet build"
+        - dotnet restore PokerPlanning/PokerPlanning.sln
+        - dotnet build PokerPlanning/PokerPlanning.sln --no-restore

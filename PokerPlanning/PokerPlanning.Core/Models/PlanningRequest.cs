@@ -9,7 +9,7 @@ namespace PokerPlanning.Core.Models
     {
         [JsonProperty("cards")]
         public HashSet<PlanningCard> Cards { get; set; }
-        
+
         [JsonProperty("ownerName")]
         public string OwnerName { get; set; }
     }
