@@ -14,7 +14,7 @@ namespace PokerPlanning.Data.Repositories
 
         public InMemoryCardsTemplateRepository()
         {
-            var template = new PlanningCardsTemplate()
+            var template = new PlanningCardsTemplate
             {
                 Id = Guid.NewGuid(),
                 Name = "Test template",
@@ -31,12 +31,10 @@ namespace PokerPlanning.Data.Repositories
 
         public IEnumerable<PlanningCardsTemplate> GetAll() => _templates.Values;
 
-        public PlanningCardsTemplate GetById(Guid id)
-        {
-            return !_templates.TryGetValue(id, out var room)
+        public PlanningCardsTemplate GetById(Guid id) =>
+            !_templates.TryGetValue(id, out var room)
                 ? null
                 : room;
-        }
 
         public void Insert(PlanningCardsTemplate entity)
         {

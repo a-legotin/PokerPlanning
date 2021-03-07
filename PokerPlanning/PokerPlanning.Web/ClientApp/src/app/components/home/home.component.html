@@ -23,21 +23,21 @@
       <div class="input-group mx-auto p-2">
         <input type="text" class="form-control" id="basic-url" [(ngModel)]="username">
       </div>
-        <ul ngbNav #nav="ngbNav" class="nav-tabs p-2">
-          <li ngbNavItem>
-            <a ngbNavLink (click)="setTemplatesTab()">Template</a>
-            <ng-template ngbNavContent class="row mx-auto">
-              <app-cards-templates [templates]="cardTemplates" (currentTemplate)="onTemplatesChanged($event)"></app-cards-templates>
-            </ng-template>
-          </li>
-          <li ngbNavItem>
-            <a ngbNavLink (click)="setCardsTab()">New cards</a>
-            <ng-template ngbNavContent class="row mx-auto">
-              <app-cards-setup (cardsEmitter)="onCardsChanged($event)"></app-cards-setup>
-            </ng-template>
-          </li>
-        </ul>
-        <div [ngbNavOutlet]="nav"></div>
+      <ul ngbNav #nav="ngbNav" class="nav-tabs p-2">
+        <li ngbNavItem>
+          <a ngbNavLink (click)="setTemplatesTab()">Template</a>
+          <ng-template ngbNavContent class="row mx-auto">
+            <app-cards-templates [templates]="cardTemplates" (currentTemplate)="onTemplatesChanged($event)"></app-cards-templates>
+          </ng-template>
+        </li>
+        <li ngbNavItem>
+          <a ngbNavLink (click)="setCardsTab()">New cards</a>
+          <ng-template ngbNavContent class="row mx-auto">
+            <app-cards-setup (cardsEmitter)="onCardsChanged($event)"></app-cards-setup>
+          </ng-template>
+        </li>
+      </ul>
+      <div [ngbNavOutlet]="nav"></div>
     </div>
   </div>
   <div class="row mx-auto w-25 p-2">

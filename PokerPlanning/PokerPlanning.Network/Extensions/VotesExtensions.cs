@@ -1,5 +1,4 @@
 using System.Collections.Generic;
-using System.Linq;
 using PokerPlanning.Core.Models;
 
 namespace PokerPlanning.Network.Extensions
@@ -14,6 +13,7 @@ namespace PokerPlanning.Network.Extensions
             {
                 votes.RemoveAt(existingVote);
             }
+
             votes.Add(vote);
         }
     }

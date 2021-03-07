@@ -1,0 +1,23 @@
+name: .NET
+
+on:
+  push:
+    branches: [ master, feature/identity-server ]
+  pull_request:
+    types: [closed]
+    branches: [ main, feature/identity-server ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v2
+    - name: Setup .NET
+      uses: actions/setup-dotnet@v1
+      with:
+        dotnet-version: 5.0.x
+    - name: Restore
+      run: dotnet restore PokerPlanning/PokerPlanning.sln
+    - name: Build
+      run: dotnet build PokerPlanning/PokerPlanning.sln --no-restore
