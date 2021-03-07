@@ -25,6 +25,7 @@ import {VotesComponent} from "./components/room/votes/votes.component";
 import {TableComponent} from "./components/room/table/table.component";
 import {RoomUsersComponent} from "./components/room/users/users.component";
 import {RoomComponent} from "./components/room/room.component";
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 
 @NgModule({
   declarations: [
@@ -49,7 +50,8 @@ import {RoomComponent} from "./components/room/room.component";
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
       { path: 'room/:id', component: RoomComponent }
-    ])
+    ]),
+    NgbModule
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthorizeInterceptor, multi: true },
