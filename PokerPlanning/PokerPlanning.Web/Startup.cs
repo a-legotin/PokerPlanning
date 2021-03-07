@@ -1,13 +1,16 @@
 using System.Reflection;
 using Autofac;
+using IdentityServer4.Services;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.HttpOverrides;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.Logging;
 using PokerPlanning.Network;
 using PokerPlanning.Network.Hubs;
 using PokerPlanning.Web.Data;
@@ -49,7 +52,15 @@ namespace PokerPlanning.Web
             services.AddSignalR(options => 
             { 
                 options.EnableDetailedErrors = true; 
-            }); 
+            });
+            
+            services.AddSingleton<ICorsPolicyService>((container) => {
+                var logger = container.GetRequiredService<ILogger<DefaultCorsPolicyService>>();
+                return new DefaultCorsPolicyService(logger)
+                {
+                    AllowAll = true
+                };
+            });
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -84,7 +95,7 @@ namespace PokerPlanning.Web
             {
                 app.UseExceptionHandler("/Error");
             }
-
+            
             app.UseStaticFiles();
             if (!env.IsDevelopment())
             {
@@ -96,15 +107,7 @@ namespace PokerPlanning.Web
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
-            
-            app.UseCors(builder =>
-            {
-                builder.WithOrigins("http://localhost:5000")
-                    .AllowCredentials() 
-                    .AllowAnyMethod() 
-                    .AllowAnyHeader(); 
-            });
-            
+
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapHub<PlanningRoomHub>("hubs/planning-room");
@@ -114,6 +117,11 @@ namespace PokerPlanning.Web
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");
                 endpoints.MapRazorPages();
+            });
+            
+            app.UseForwardedHeaders(new ForwardedHeadersOptions
+            {
+                ForwardedHeaders = ForwardedHeaders.XForwardedFor | ForwardedHeaders.XForwardedProto
             });
 
             app.UseSpa(spa =>
