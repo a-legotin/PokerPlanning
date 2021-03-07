@@ -1,4 +1,5 @@
 using System.Reflection;
+using Autofac;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
@@ -7,6 +8,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using PokerPlanning.Network;
+using PokerPlanning.Network.Hubs;
 using PokerPlanning.Web.Data;
 using PokerPlanning.Web.Models;
 
@@ -42,6 +45,11 @@ namespace PokerPlanning.Web
                         b.EnableRetryOnFailure(dbRetryCount);
                     })
             );
+            
+            services.AddSignalR(options => 
+            { 
+                options.EnableDetailedErrors = true; 
+            }); 
 
             services.AddDatabaseDeveloperPageExceptionFilter();
 
@@ -57,6 +65,12 @@ namespace PokerPlanning.Web
             services.AddRazorPages();
 
             services.AddSpaStaticFiles(configuration => { configuration.RootPath = "ClientApp/dist"; });
+        }
+        
+        public void ConfigureContainer(ContainerBuilder builder)
+        {
+            builder.RegisterModule(new PokerPlanning.Data.AutofacModule());
+            builder.RegisterModule(new AutofacModule());
         }
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
@@ -82,8 +96,20 @@ namespace PokerPlanning.Web
             app.UseAuthentication();
             app.UseIdentityServer();
             app.UseAuthorization();
+            
+            app.UseCors(builder =>
+            {
+                builder.WithOrigins("http://localhost:5000")
+                    .AllowCredentials() 
+                    .AllowAnyMethod() 
+                    .AllowAnyHeader(); 
+            });
+            
             app.UseEndpoints(endpoints =>
             {
+                endpoints.MapHub<PlanningRoomHub>("hubs/planning-room");
+                endpoints.MapHub<PlanningRoundHub>("hubs/planning-room/round");
+                
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller}/{action=Index}/{id?}");

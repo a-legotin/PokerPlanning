@@ -18,13 +18,27 @@ import {LogService} from "./services/logging/log.service";
 import {LogPublishersService} from "./services/logging/log.publisher.service";
 import {CurrentUserService} from "./services/currentUser.service";
 import {CardsTemplateService} from "./services/cards-template.service";
+import {CardsTemplatesComponent} from "./components/room/cards/templates/cards.templates.component";
+import {CardsComponent} from "./components/room/cards/cards.component";
+import {CardsSetupComponent} from "./components/room/cards/setup/cards.setup.component";
+import {VotesComponent} from "./components/room/votes/votes.component";
+import {TableComponent} from "./components/room/table/table.component";
+import {RoomUsersComponent} from "./components/room/users/users.component";
+import {RoomComponent} from "./components/room/room.component";
 
 @NgModule({
   declarations: [
     AppComponent,
     NavMenuComponent,
     HomeComponent,
-    FetchDataComponent
+    FetchDataComponent,
+    RoomComponent,
+    TableComponent,
+    RoomUsersComponent,
+    CardsTemplatesComponent,
+    CardsComponent,
+    VotesComponent,
+    CardsSetupComponent
   ],
   imports: [
     BrowserModule.withServerTransition({ appId: 'ng-cli-universal' }),
@@ -34,6 +48,7 @@ import {CardsTemplateService} from "./services/cards-template.service";
     RouterModule.forRoot([
       { path: '', component: HomeComponent, pathMatch: 'full' },
       { path: 'fetch-data', component: FetchDataComponent, canActivate: [AuthorizeGuard] },
+      { path: 'room/:id', component: RoomComponent }
     ])
   ],
   providers: [
@@ -45,6 +60,10 @@ import {CardsTemplateService} from "./services/cards-template.service";
     LogPublishersService,
     CurrentUserService,
     CardsTemplateService,
+    CardsTemplatesComponent,
+    CardsComponent,
+    VotesComponent,
+    CardsSetupComponent
   ],
   bootstrap: [AppComponent]
 })

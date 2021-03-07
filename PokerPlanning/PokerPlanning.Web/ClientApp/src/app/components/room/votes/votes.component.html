@@ -1,0 +1,13 @@
+<div *ngIf="allVotes">
+  <div class="card border-light">
+    <h5 class="card-header" *ngIf="!isConsensus()">Avg: {{getAverage()}}</h5>
+    <h5 class="card-header bg-success" *ngIf="isConsensus()">Consensus!</h5>
+    <div class="card-body container-fluid">
+      <ul class="list-group list-group-flush" *ngFor="let vote of allVotes;">
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+          <h5>{{vote.user.name}} <span class="badge badge-primary badge-pill">{{vote.card.value}}</span></h5>
+        </li>
+      </ul>
+    </div>
+  </div>
+</div>

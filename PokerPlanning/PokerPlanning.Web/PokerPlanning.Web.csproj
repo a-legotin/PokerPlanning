@@ -13,6 +13,8 @@
     </PropertyGroup>
 
     <ItemGroup>
+        <PackageReference Include="Autofac" Version="6.1.0" />
+        <PackageReference Include="Autofac.Extensions.DependencyInjection" Version="7.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Identity" Version="2.2.0" />
         <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="5.0.3" />
         <PackageReference Include="Microsoft.AspNetCore.ApiAuthorization.IdentityServer" Version="5.0.3" />
@@ -46,6 +48,11 @@
     </ItemGroup>
     <ItemGroup>
       <Folder Include="ClientApp\src\app\components" />
+    </ItemGroup>
+    <ItemGroup>
+      <ProjectReference Include="..\PokerPlanning.Core\PokerPlanning.Core.csproj" />
+      <ProjectReference Include="..\PokerPlanning.Data\PokerPlanning.Data.csproj" />
+      <ProjectReference Include="..\PokerPlanning.Network\PokerPlanning.Network.csproj" />
     </ItemGroup>
 
     <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

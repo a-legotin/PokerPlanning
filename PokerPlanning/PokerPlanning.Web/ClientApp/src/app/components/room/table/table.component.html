@@ -1,0 +1,26 @@
+<div *ngIf="room">
+  <h5 class="d-flex justify-content-between align-items-center mb-3">
+    <span class="text-dark">Table</span>
+  </h5>
+  <div class="pl-3">
+    <div class="row border-top">
+      <h3>{{currentUser.name}}</h3>
+    </div>
+    <div class="row border-top ng-cloak" *ngIf="currentRound">
+      <h6>Current round: </h6><h6>{{this.currentRoundSpan.minutes}}:{{this.currentRoundSpan.seconds}}</h6>
+    </div>
+    <div class="row pt-2 border-top">
+      <div class="pr-2">
+        <button type="button" class="btn btn-primary d-inline-flex p-2" (click)="showAllVotes()">Show votes</button>
+      </div>
+      <button type="button" class="btn btn-success d-inline-flex p-2" (click)="spinNextRound()">Next round</button>
+    </div>
+    <div class="row pt-2 pb-3">
+      <app-cards [cards]="room.cards" [roundHub]="roundHub" [currentUser]="currentUser" [currentRound]="currentRound"></app-cards>
+    </div>
+
+    <div class="row pt-4 border-top" *ngIf="allVotes">
+      <app-votes class="container-fluid pl-0 pr-0" [allVotes]="allVotes"></app-votes>
+    </div>
+  </div>
+</div>
